@@ -4,6 +4,8 @@ class Gamer:
         self.set_name(name)
         self.set_email(email)
         self.set_password(password)
+        self.hosted_games = []         
+        self.joined_games = []     
 
     # Get functions
     def get_name(self):
@@ -24,5 +26,15 @@ class Gamer:
     
     def set_password(self, password):
         self.__password = password
+    
+    def host_game(self, game_name):
+        self.hosted_games.append(game_name.strip())
+    
+    def join_game(self, game_name):
+        self.joined_games.append(game_name.strip())
+    
+    def gamerinformation(self):
+        return f"Gamer: {self.__name}, Email: {self.__email}, Hosted Games: {self.hosted_games}, Joined Games: {self.joined_games}"
+
     
 
