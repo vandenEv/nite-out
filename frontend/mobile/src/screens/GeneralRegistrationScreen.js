@@ -1,0 +1,3 @@
+/* General registration screen
+    see figma for reference
+*/
