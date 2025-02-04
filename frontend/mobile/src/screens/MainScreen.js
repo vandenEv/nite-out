@@ -36,12 +36,12 @@ const MainScreen = () => {
         if (currentLocation) {
             navigation.navigate('Map', { coords: currentLocation });
         } else {
-            return <Text>Loading your location...</Text>; // Loading message until location is fetched
+            return <Text>Loading your location...</Text>; 
         }
     };
 
     if (!currentLocation) {
-        return <Text>Loading...</Text>; // Show loading text until location is fetched
+        return <Text>Loading...</Text>; 
     }
 
     return (

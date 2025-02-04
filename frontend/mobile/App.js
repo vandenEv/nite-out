@@ -10,6 +10,7 @@ import GeneralRegistrationScreen from "./src/screens/GeneralRegistrationScreen";
 import CompanyRegistrationScreen from "./src/screens/CompanyRegistrationScreen";
 import PracticeHomeScreen from "./src/screens/PracticeHomeScreen";
 
+
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
         <Stack.Screen name="PracticeHome" component={PracticeHomeScreen} />
         <Stack.Screen name="Main" component={MainScreen} />
         <Stack.Screen name="Map" component={MapScreen} />
+        <Stack.Screen name="GeneralRegistration" component={GeneralRegistrationScreen} />
         {/* Add other screens here */}
       </Stack.Navigator>
     </NavigationContainer>

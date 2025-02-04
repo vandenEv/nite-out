@@ -14,6 +14,10 @@ const PracticeHome = ({ navigation }) => {
           onPress={() => navigation.navigate('Main')}
           title="Go to components demo" 
         />
+        <Button 
+          onPress={() => navigation.navigate('GeneralRegistration')}
+          title="Go to general registration screen" 
+        />
       </View>
     );
   };
