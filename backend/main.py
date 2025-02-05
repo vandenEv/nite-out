@@ -2,6 +2,9 @@ from flask import Flask
 
 app = Flask(__name__)
 
+#store games
+games = {};
+
 
 # API Route (Test)
 @app.route("/tests")
