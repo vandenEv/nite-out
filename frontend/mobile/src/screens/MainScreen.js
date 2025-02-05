@@ -8,6 +8,8 @@ import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location'; 
 import { useNavigation } from '@react-navigation/native'; 
 import axios from 'axios';
+import {FontAwesome} from '@expo/vector-icons';
+import HamburgerButton from '../../components/HamburgerButton'
 
 const MainScreen = () => {
     const [pubs, setPubs] = useState([]);
@@ -64,18 +66,26 @@ const MainScreen = () => {
     if (!currentLocation) {
         return <Text>Loading...</Text>; 
     }
+    
+    const handleHamburgerToggle = (isOpen) => {
+        console.log('Hamburger Menu is ' + (isOpen ? 'Open' : 'Closed'));
+      };
 
     return (
         <SafeAreaView style={styles.safeArea}>
             <View style={styles.container}>
                 
-                {/* Search bar */}
-                <TextInput
-                    style={styles.searchBar}
-                    placeholder="Search pubs and games"
-                    placeholderTextColor="#999"
-                />
-
+                <View style={styles.header}>
+                    {/* Hamburger menu */}
+                    <HamburgerButton onPress={handleHamburgerToggle}/>
+                    
+                    {/* Search bar */}
+                    <TextInput
+                        style={styles.searchBar}
+                        placeholder="Search pubs and games"
+                        placeholderTextColor="#999"
+                    />
+                </View>
                 {/* Map */}
                 <MapView
                     style={styles.map}
@@ -114,20 +124,21 @@ const styles = StyleSheet.create({
     safeArea: {
         flex: 1,
         backgroundColor: "#00B4D8",
+        justifyContent: 'flex-start',
     },
     searchBar: {
+        flex: 1,
         height: 50,
         backgroundColor: "#eef0f2",
-        width: '95%',
+        width: '60%',
         borderRadius: 10,
         paddingHorizontal: 15,
-        marginBottom: 10,
-        marginTop: -400,
-        fontSize: 17
+        marginLeft: 5,
+        fontSize: 17,
     },
     container: {
       flex: 1,
-      justifyContent: 'center',
+      justifyContent: 'flex-start',
       alignItems: 'center',
     },
     map: {
@@ -138,6 +149,14 @@ const styles = StyleSheet.create({
     buttonText: {
       color: 'white',
       fontSize: 16,
+    },
+    header: {
+        flexDirection: 'row',
+        paddingTop: 0,
+        paddingBottom: 5,
+        alignItems: 'center',
+        width: '100%',
+        padding: 10,
     }
   });
 
