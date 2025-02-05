@@ -3,11 +3,13 @@
 */
 
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text, Button, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, Button, TouchableOpacity, SafeAreaView, TextInput } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location'; 
 import { useNavigation } from '@react-navigation/native'; 
 import axios from 'axios';
+import {FontAwesome} from '@expo/vector-icons';
+import HamburgerButton from '../../components/HamburgerButton'
 
 const MainScreen = () => {
     const [pubs, setPubs] = useState([]);
@@ -64,55 +66,97 @@ const MainScreen = () => {
     if (!currentLocation) {
         return <Text>Loading...</Text>; 
     }
+    
+    const handleHamburgerToggle = (isOpen) => {
+        console.log('Hamburger Menu is ' + (isOpen ? 'Open' : 'Closed'));
+      };
 
     return (
-        <View style={Styles.container}>
-            <MapView
-                style={Styles.map}
-                initialRegion={{
-                    latitude:  currentLocation.latitude,
-                    longitude: currentLocation.longitude,
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421,
-                }}
-                onPress={mapPressed} 
-            >
-                {/* Current location marker */}
-                {currentLocation && (
-                    <Marker
-                    coordinate={currentLocation}
-                    title='You are here'
-                    pinColor='blue'
-                    tappable='false'
+        <SafeAreaView style={styles.safeArea}>
+            <View style={styles.container}>
+                
+                <View style={styles.header}>
+                    {/* Hamburger menu */}
+                    <HamburgerButton onPress={handleHamburgerToggle}/>
+                    
+                    {/* Search bar */}
+                    <TextInput
+                        style={styles.searchBar}
+                        placeholder="Search pubs and games"
+                        placeholderTextColor="#999"
                     />
-                )}
-                {/* Pub markers */}
-                {/* {pubs.map((pub) => (
-                    <Marker
-                    key={pub.id}
-                    coordinate={{ latitude: pub.latitude, longitude: pub.longitude }}
-                    title={pub.name}
-                    />
-                ))} */}
-            </MapView>
-        </View>
+                </View>
+                {/* Map */}
+                <MapView
+                    style={styles.map}
+                    initialRegion={{
+                        latitude:  currentLocation.latitude,
+                        longitude: currentLocation.longitude,
+                        latitudeDelta: 0.00922,
+                        longitudeDelta: 0.0421,
+                    }}
+                    onPress={mapPressed} 
+                >
+                    {/* Current location marker */}
+                    {currentLocation && (
+                        <Marker
+                        coordinate={currentLocation}
+                        title='You are here'
+                        pinColor='blue'
+                        tappable='false'
+                        />
+                    )}
+                    {/* Pub markers */}
+                    {/* {pubs.map((pub) => (
+                        <Marker
+                        key={pub.id}
+                        coordinate={{ latitude: pub.latitude, longitude: pub.longitude }}
+                        title={pub.name}
+                        />
+                    ))} */}
+                </MapView>
+            </View>
+        </SafeAreaView>
     );
 };
 
-const Styles = StyleSheet.create({
+const styles = StyleSheet.create({
+    safeArea: {
+        flex: 1,
+        backgroundColor: "#00B4D8",
+        justifyContent: 'flex-start',
+    },
+    searchBar: {
+        flex: 1,
+        height: 50,
+        backgroundColor: "#eef0f2",
+        width: '60%',
+        borderRadius: 10,
+        paddingHorizontal: 15,
+        marginLeft: 5,
+        fontSize: 17,
+    },
     container: {
       flex: 1,
-      justifyContent: 'center',
+      justifyContent: 'flex-start',
       alignItems: 'center',
     },
     map: {
       width: '95%',
-      height: '50%',
-      marginTop: -200
+      height: '40%',
+      borderRadius: 10
     },
     buttonText: {
       color: 'white',
       fontSize: 16,
+    },
+    header: {
+        flexDirection: 'row',
+        paddingTop: 0,
+        paddingBottom: 5,
+        alignItems: 'center',
+        width: '100%',
+        padding: 10,
     }
   });
 
