@@ -7,11 +7,15 @@ import { View, StyleSheet, Text, Button, TouchableOpacity } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location'; 
 import { useNavigation } from '@react-navigation/native'; 
+import axios from 'axios';
 
 const MainScreen = () => {
+    const [pubs, setPubs] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [currentLocation, setCurrentLocation] = useState(null);
     const navigation = useNavigation();
 
+    {/* Get current location */}
     useEffect(() => {
         const getLocation = async () => {
             try {
@@ -31,6 +35,23 @@ const MainScreen = () => {
 
         getLocation();
     }, []);
+
+    {/* Fetch pub data */}
+    // useEffect(() => {
+    //     fetchPubs();
+    // }, []);
+
+    // const fetchPubs = async () => {
+    //     try {
+    //       const response = await axios.get('http://localhost:5000/pubs'); // change to appropriate url
+    //       setPubs(response.data);
+    //     } catch (error) {
+    //       console.error('Error fetching pubs:', error);
+    //       Alert.alert('Error', 'Failed to load pub locations.');
+    //     } finally {
+    //       setLoading(false);
+    //     }
+    // };
 
     const mapPressed = (e) => {
         if (currentLocation) {
@@ -56,7 +77,23 @@ const MainScreen = () => {
                 }}
                 onPress={mapPressed} 
             >
-                <Marker coordinate={currentLocation} />
+                {/* Current location marker */}
+                {currentLocation && (
+                    <Marker
+                    coordinate={currentLocation}
+                    title='You are here'
+                    pinColor='blue'
+                    tappable='false'
+                    />
+                )}
+                {/* Pub markers */}
+                {/* {pubs.map((pub) => (
+                    <Marker
+                    key={pub.id}
+                    coordinate={{ latitude: pub.latitude, longitude: pub.longitude }}
+                    title={pub.name}
+                    />
+                ))} */}
             </MapView>
         </View>
     );
@@ -80,3 +117,13 @@ const Styles = StyleSheet.create({
   });
 
 export default MainScreen;
+
+
+/* NOTES on flexbox
+flexDirection: 'row' --> could be used for the tags above the map on main page
+justifyContent: 'space-between' or 'space-around' --> evenly spaces the items within the parent container
+flex: 1 --> on all children will have them all share the available space equally
+absoluteFill --> allow a child to expand and fill up parent container
+
+navigator: also use drawerNavigator to get the burger menu on the side?
+*/

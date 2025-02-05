@@ -9,64 +9,78 @@ import {
     TextInput,
     TouchableOpacity,
     StyleSheet,
+    Dimensions,
+    SafeAreaView
 } from "react-native";
+import {
+    widthPercentageToDP as wp,
+    heightPercentageToDP as hp
+} from 'react-native-responsive-screen';
+
+const { width, height } = Dimensions.get("window");
 
 const GeneralRegistrationScreen = ({ navigation }) => {
     return (
-        <View style={styles.container}>
-            <View style={[styles.section, styles.backgroundBlue]} />
-            <View style={[styles.section, styles.backgroundLightBlue]} />
-            <View style={[styles.section, styles.backgroundWhite]} />
+        <SafeAreaView style={styles.safeArea}>
+            <View style={styles.container}>
+                <View style={[styles.section, styles.backgroundBlue]} />
+                <View style={[styles.section, styles.backgroundLightBlue]} />
+                <View style={[styles.section, styles.backgroundWhite]} />
 
-            {/* Form Container */}
-            <View style={styles.formContainer}>
-                <Text style={styles.title}>Create account</Text>
-                <Text style={styles.subtitle}>Sign up and start playing</Text>
+                {/* Form Container */}
+                <View style={styles.formContainer}>
+                    <Text style={styles.title}>Create account</Text>
+                    <Text style={styles.subtitle}>Sign up and start playing</Text>
 
-                {/* Full Name Input */}
-                <TextInput
-                    style={styles.input}
-                    placeholder="Full Name"
-                    placeholderTextColor="#999"
-                />
+                    {/* Full Name Input */}
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Full Name"
+                        placeholderTextColor="#999"
+                    />
 
-                {/* Email Input */}
-                <TextInput
-                    style={styles.input}
-                    placeholder="Email"
-                    placeholderTextColor="#999"
-                    keyboardType="email-address"
-                />
+                    {/* Email Input */}
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Email"
+                        placeholderTextColor="#999"
+                        keyboardType="email-address"
+                    />
 
-                {/* Password Input */}
-                <TextInput
-                    style={styles.input}
-                    placeholder="Password"
-                    placeholderTextColor="#999"
-                    secureTextEntry
-                />
+                    {/* Password Input */}
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Password"
+                        placeholderTextColor="#999"
+                        secureTextEntry
+                    />
 
-                {/* Sign Up Button */}
-                <TouchableOpacity style={styles.signUpButton}>
-                    <Text style={styles.signUpText}>Sign up</Text>
-                </TouchableOpacity>
+                    {/* Sign Up Button */}
+                    <TouchableOpacity style={styles.signUpButton}>
+                        <Text style={styles.signUpText}>Sign up</Text>
+                    </TouchableOpacity>
 
-                {/* Sign Up as Publican Button */}
-                <TouchableOpacity style={styles.publicanButton}>
-                    <Text style={styles.publicanText}>Sign up as Publican</Text>
-                </TouchableOpacity>
+                    {/* Sign Up as Publican Button */}
+                    <TouchableOpacity style={styles.publicanButton}>
+                        <Text style={styles.publicanText}>Sign up as Publican</Text>
+                    </TouchableOpacity>
 
-                {/* Sign In Link */}
-                <Text style={styles.footerText}>
-                    Already have an account?{" "}
-                    <Text style={styles.signInLink}>Sign in</Text>
-                </Text>
+                    {/* Sign In Link */}
+                    <Text style={styles.footerText}>
+                        Already have an account?{" "}
+                        <Text style={styles.signInLink}>Sign in</Text>
+                    </Text>
+                </View>
             </View>
-        </View>
+        </SafeAreaView>
     );
 };
 
 const styles = StyleSheet.create({
+    safeArea: {
+        flex: 1,
+        backgroundColor: "#00B4D8",
+    },
     container: {
         flex: 1,
         backgroundColor: "#00B4D8",
