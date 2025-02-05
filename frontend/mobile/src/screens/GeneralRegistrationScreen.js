@@ -76,7 +76,7 @@ const GeneralRegistrationScreen = ({ navigation }) => {
     );
 };
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
     safeArea: {
         flex: 1,
         backgroundColor: "#00B4D8",

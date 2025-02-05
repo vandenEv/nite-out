@@ -10,6 +10,7 @@ import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import {FontAwesome} from '@expo/vector-icons';
 import HamburgerButton from '../../components/HamburgerButton'
+import MapTags from '../../components/MapTags';
 
 const MainScreen = () => {
     const [pubs, setPubs] = useState([]);
@@ -86,6 +87,12 @@ const MainScreen = () => {
                         placeholderTextColor="#999"
                     />
                 </View>
+                
+                {/* Tags */}
+                <MapTags tags={["Scrabble", "Darts", "Billiards", "Trivia", "Cards", "Catan"]} 
+                    onSelectedTag={(tag) => console.log("Selected:", tag)} 
+                />
+
                 {/* Map */}
                 <MapView
                     style={styles.map}
@@ -130,7 +137,6 @@ const styles = StyleSheet.create({
         flex: 1,
         height: 50,
         backgroundColor: "#eef0f2",
-        width: '60%',
         borderRadius: 10,
         paddingHorizontal: 15,
         marginLeft: 5,
@@ -144,7 +150,8 @@ const styles = StyleSheet.create({
     map: {
       width: '95%',
       height: '40%',
-      borderRadius: 10
+      borderRadius: 10,
+      paddingVertical: 5,
     },
     buttonText: {
       color: 'white',
@@ -153,7 +160,7 @@ const styles = StyleSheet.create({
     header: {
         flexDirection: 'row',
         paddingTop: 0,
-        paddingBottom: 5,
+        paddingBottom: 0,
         alignItems: 'center',
         width: '100%',
         padding: 10,
