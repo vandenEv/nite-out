@@ -1,77 +1,66 @@
-class Game:
-    def __init__(self, host, game_name, game_type, date, location, max_players):
-        self.set_host(host)
-        self.set_game_name(game_name)
-        self.set_game_type(game_type)
-        self.set_date(date)
-        self.set_location(location)
-        self.set_max_players(max_players)
-        self.__participants = []
+import requests
 
-    # Get functions
-    def get_host(self):
-        return self.__host
-    
-    def get_game_name(self):
-        return self.__game_name
-    
-    def get_game_type(self):
-        return self.__game_type
-    
-    def get_date(self):
-        return self.__date
-    
-    def get_location(self):
-        return self.__location
+BASE_URL = "http://127.0.0.1:5000"
 
-    def get_max_players(self):
-        return self.__max_players
+# To create a new game
+def create_game(game_data):
+    response = requests.post(f"{BASE_URL}/games", json=game_data)
+    if response.status_code == 201:
+        print(response.json())  
+    else:
+        print("Error:", response.json())  
 
-    def get_participants(self):
-        return self.__participants
+# To get game details
+def get_game(game_name):
+    response = requests.get(f"{BASE_URL}/games/{game_name}")
+    if response.status_code == 404:
+        print("Game not found.")
+    else:
+        print(response.json())
 
-    # Set functions
-    def set_host(self, host):
-        self.__host = host
+# List all games
+def list_games():
+    response = requests.get(f"{BASE_URL}/games")
+    print(response.json())
 
-    def set_game_name(self, game_name):
-        self.__game_name = game_name
+# Join a game
+def join_game(game_name, participant):
+    response = requests.post(f"{BASE_URL}/games/{game_name}/join", json={"participant": participant})
+    print(response.json())
 
-    def set_game_type(self, game_type):
-        self.__game_type = game_type
+# Leave a game
+def leave_game(game_name, participant):
+    response = requests.post(f"{BASE_URL}/games/{game_name}/leave", json={"participant": participant})
+    print(response.json())
 
-    def set_date(self, date):
-        self.__date = date
+if __name__ == "__main__":
+    # Example 
+    game_data = {
+        "host": "Alice",
+        "game_name": "Chess Night",
+        "game_type": "Board Game",
+        "date": "2025-02-10",
+        "location": "Pub XYZ",
+        "max_players": 4
+    }
 
-    def set_location(self, location):
-        self.__location = location
+    # Create a game
+    create_game(game_data)
 
-    def set_max_players(self, max_players):
-        self.__max_players = max_players
-
-    # Add participant
-    def add_participant(self, participant):
-        if len(self.__participants) < self.__max_players:
-            self.__participants.append(participant)
-            return f"{participant} has joined the game."
-        else:
-            return "Game is full."
-
-    # Remove participant
-    def remove_participant(self, participant):
-        if participant in self.__participants:
-            self.__participants.remove(participant)
-            return f"{participant} has left the game."
-        return "Participant not found."
+    # List games
+    list_games()
 
     # Get game details
-    def get_game_details(self):
-        return {
-            "host": self.__host,
-            "game_name": self.__game_name,
-            "game_type": self.__game_type,
-            "date": self.__date,
-            "location": self.__location,
-            "max_players": self.__max_players,
-            "participants": self.__participants
-        }
+    get_game("Chess Night")
+
+    # Join game
+    join_game("Chess Night", "Bob")
+    join_game("Chess Night", "Charlie")
+    join_game("Chess Night", "David")
+    join_game("Chess Night", "Eve")  
+
+    # Leave game
+    leave_game("Chess Night", "Bob")
+
+    # Get updated game details
+    get_game("Chess Night")
