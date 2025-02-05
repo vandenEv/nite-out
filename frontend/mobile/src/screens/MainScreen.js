@@ -3,7 +3,7 @@
 */
 
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text, Button, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, Button, TouchableOpacity, SafeAreaView, TextInput } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location'; 
 import { useNavigation } from '@react-navigation/native'; 
@@ -66,40 +66,65 @@ const MainScreen = () => {
     }
 
     return (
-        <View style={Styles.container}>
-            <MapView
-                style={Styles.map}
-                initialRegion={{
-                    latitude:  currentLocation.latitude,
-                    longitude: currentLocation.longitude,
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421,
-                }}
-                onPress={mapPressed} 
-            >
-                {/* Current location marker */}
-                {currentLocation && (
-                    <Marker
-                    coordinate={currentLocation}
-                    title='You are here'
-                    pinColor='blue'
-                    tappable='false'
-                    />
-                )}
-                {/* Pub markers */}
-                {/* {pubs.map((pub) => (
-                    <Marker
-                    key={pub.id}
-                    coordinate={{ latitude: pub.latitude, longitude: pub.longitude }}
-                    title={pub.name}
-                    />
-                ))} */}
-            </MapView>
-        </View>
+        <SafeAreaView style={styles.safeArea}>
+            <View style={styles.container}>
+                
+                {/* Search bar */}
+                <TextInput
+                    style={styles.searchBar}
+                    placeholder="Search pubs and games"
+                    placeholderTextColor="#999"
+                />
+
+                {/* Map */}
+                <MapView
+                    style={styles.map}
+                    initialRegion={{
+                        latitude:  currentLocation.latitude,
+                        longitude: currentLocation.longitude,
+                        latitudeDelta: 0.00922,
+                        longitudeDelta: 0.0421,
+                    }}
+                    onPress={mapPressed} 
+                >
+                    {/* Current location marker */}
+                    {currentLocation && (
+                        <Marker
+                        coordinate={currentLocation}
+                        title='You are here'
+                        pinColor='blue'
+                        tappable='false'
+                        />
+                    )}
+                    {/* Pub markers */}
+                    {/* {pubs.map((pub) => (
+                        <Marker
+                        key={pub.id}
+                        coordinate={{ latitude: pub.latitude, longitude: pub.longitude }}
+                        title={pub.name}
+                        />
+                    ))} */}
+                </MapView>
+            </View>
+        </SafeAreaView>
     );
 };
 
-const Styles = StyleSheet.create({
+const styles = StyleSheet.create({
+    safeArea: {
+        flex: 1,
+        backgroundColor: "#00B4D8",
+    },
+    searchBar: {
+        height: 50,
+        backgroundColor: "#eef0f2",
+        width: '95%',
+        borderRadius: 10,
+        paddingHorizontal: 15,
+        marginBottom: 10,
+        marginTop: -400,
+        fontSize: 17
+    },
     container: {
       flex: 1,
       justifyContent: 'center',
@@ -107,8 +132,8 @@ const Styles = StyleSheet.create({
     },
     map: {
       width: '95%',
-      height: '50%',
-      marginTop: -200
+      height: '40%',
+      borderRadius: 10
     },
     buttonText: {
       color: 'white',

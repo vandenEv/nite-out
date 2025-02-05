@@ -18,8 +18,8 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="PracticeHome">
         <Stack.Screen name="PracticeHome" component={PracticeHomeScreen} />
-        <Stack.Screen name="Main" component={MainScreen} />
-        <Stack.Screen name="Map" component={MapScreen} />
+        <Stack.Screen name="Main" component={MainScreen} options={{headerShown: false}}/>
+        <Stack.Screen name="Map" component={MapScreen} options={{headerShown: false}}/>
         <Stack.Screen name="GeneralRegistration" component={GeneralRegistrationScreen} options={{headerShown: false}}/>
         {/* Add other screens here */}
       </Stack.Navigator>
